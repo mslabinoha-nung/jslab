@@ -78,9 +78,10 @@
               <label for="conferenceDateInput" class="form-label">Дата проведення</label>
               <input type="text" class="form-control" id="conferenceDateInput" required>
             </div>
+            <input type="hidden" id="conferenceIdInput" value=""/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="button" id="closeConferenceModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
           <button type="submit" class="btn btn-primary">Зберегти</button>
         </div>
       </form>
@@ -119,9 +120,10 @@
               <label for="scientistDegreeInput" class="form-label">Науковий ступінь</label>
               <input type="text" class="form-control" id="scientistDegreeInput" required>
             </div>
+            <input type="hidden" id="scientistIdInput" value=""/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="button" id="closeScientistModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
           <button type="submit" class="btn btn-primary">Зберегти</button>
         </div>
       </form>
@@ -167,9 +169,10 @@
               <label for="participationDurationInput" class="form-label">Тривалість доповіді (у хвилинах)</label>
               <input type="number" class="form-control" id="participationDurationInput" required>
             </div>
+            <input type="hidden" id="participationIdInput" value=""/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="button" id="closeParticipationModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
           <button type="submit" class="btn btn-primary">Зберегти</button>
         </div>
       </form>
