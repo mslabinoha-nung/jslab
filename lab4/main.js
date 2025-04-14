@@ -54,24 +54,27 @@ let participations=[
 		conference:"«Сталий розвиток економіки, підприємств та суспільства»",
 		scientist:"Bohdan Pashkovskyi",
 		topic:"Якась глобальна тема",
-		type:"доповідь",
-		duration:"50 хв"
+		type:"Доповідь",
+		duration:"50"
 	},{
 		id:2,
 		conference:"«Адаптація до глобальних змін та викликів в економіці, туризмі, рекреації та захисті довкілля»",
 		scientist:"Bohdan Pashkovskyi",
 		topic:"Якась не дуже глобальна тема",
-		type:"доповідь",
-		duration:"20 хв"
+		type:"Доповідь",
+		duration:"20"
 	},{
 		id:3,
 		conference:"«Адаптація до глобальних змін та викликів в економіці, туризмі, рекреації та захисті довкілля»",
 		scientist:"Marian Slabinoha",
 		topic:"Ще про щось там порозказували",
-		type:"доповідь",
-		duration:"30 хв"
+		type:"Доповідь",
+		duration:"30"
 	}
 ]
+conferencesLastId=3;
+scientistsLastId=3;
+participationsLastId=3;
 function displayParticipations(){
 	const participationTab=document.getElementById('participation');
 	let participationTabContent=`
@@ -198,6 +201,7 @@ displayConferences();
 //event processors
 document.addEventListener('click', function(e){
   if(e.target.classList.contains('delete-participation')){
+	e.preventDefault();
 	let elementId=e.target.getAttribute('data-id');
 	for(let i=0;i<participations.length;i++){
 		if(elementId==participations[i].id){
@@ -207,6 +211,7 @@ document.addEventListener('click', function(e){
 	}
 	displayParticipations();
   } else if(e.target.classList.contains('delete-scientist')){
+	e.preventDefault();
 	let elementId=e.target.getAttribute('data-id');
 	for(let i=0;i<scientists.length;i++){
 		if(elementId==scientists[i].id){
@@ -216,6 +221,7 @@ document.addEventListener('click', function(e){
 	}
 	displayScientists();
   } else if(e.target.classList.contains('delete-conference')){
+	e.preventDefault();
 	let elementId=e.target.getAttribute('data-id');
 	for(let i=0;i<conferences.length;i++){
 		if(elementId==conferences[i].id){
@@ -224,5 +230,161 @@ document.addEventListener('click', function(e){
 		}
 	}
 	displayConferences();
+  } else if(e.target.classList.contains('edit-conference')){
+	e.preventDefault();
+	let elementId=e.target.getAttribute('data-id');
+	for(let i=0;i<conferences.length;i++){
+		if(elementId==conferences[i].id){
+			document.getElementById('conferenceIdInput').value=conferences[i].id;
+			document.getElementById('conferenceTopicInput').value=conferences[i].topic;
+			document.getElementById('conferenceTitleInput').value=conferences[i].title; 
+			document.getElementById('conferenceCountryInput').value=conferences[i].country;
+			document.getElementById('conferencePlaceInput').value=conferences[i].place;
+			document.getElementById('conferenceDateInput').value=conferences[i].date;
+			document.getElementById('addConference').click();
+			break;
+		}
+	}
+  } else if(e.target.classList.contains('edit-scientist')){
+	e.preventDefault();
+	let elementId=e.target.getAttribute('data-id');
+	for(let i=0;i<scientists.length;i++){
+		if(elementId==scientists[i].id){
+			document.getElementById('scientistIdInput').value=scientists[i].id;
+			document.getElementById('scientistNameInput').value=scientists[i].name;
+			document.getElementById('scientistOrganisationInput').value=scientists[i].organisation; 
+			document.getElementById('scientistCountryInput').value=scientists[i].country;
+			document.getElementById('scientistFieldInput').value=scientists[i].field;
+			document.getElementById('scientistDegreeInput').value=scientists[i].degree;
+			document.getElementById('addScientist').click();
+			break;
+		}
+	}
+  } else if(e.target.classList.contains('edit-participation')){
+	e.preventDefault();
+	let elementId=e.target.getAttribute('data-id');
+	for(let i=0;i<participations.length;i++){
+		if(elementId==participations[i].id){
+			document.getElementById('participationIdInput').value=participations[i].id;
+			document.getElementById('participationConferenceInput').value=participations[i].conference;
+			document.getElementById('participationScientistInput').value=participations[i].scientist; 
+			document.getElementById('participationTopicInput').value=participations[i].topic;
+			document.getElementById('participationTypeInput').value=participations[i].type;
+			document.getElementById('participationDurationInput').value=participations[i].duration;
+			document.getElementById('addParticipation').click();
+			break;
+		}
+	}
   }
 });
+document.addEventListener('submit', function(e){
+	if(e.target.id=="conferenceForm"){
+		e.preventDefault();
+		let id=document.getElementById('conferenceIdInput').value;
+		let topic=document.getElementById('conferenceTopicInput').value;
+		let title=document.getElementById('conferenceTitleInput').value; 
+		let country=document.getElementById('conferenceCountryInput').value;
+		let place=document.getElementById('conferencePlaceInput').value;
+		let date=document.getElementById('conferenceDateInput').value;
+		if(id==""){
+			let newConference={
+				id:++conferencesLastId,
+				topic:topic,
+				title:title,
+				country:country,
+				place:place,
+				date:date
+				}
+			conferences.push(newConference);
+		} else{
+			for(let i=0;i<conferences.length;i++){
+				if(id==conferences[i].id){
+					conferences[i].id=document.getElementById('conferenceIdInput').value;
+					conferences[i].topic=document.getElementById('conferenceTopicInput').value;
+					conferences[i].title=document.getElementById('conferenceTitleInput').value; 
+					conferences[i].country=document.getElementById('conferenceCountryInput').value;
+					conferences[i].place=document.getElementById('conferencePlaceInput').value;
+					conferences[i].date=document.getElementById('conferenceDateInput').value;
+					break;
+				}
+			}
+		}
+		displayConferences();
+		document.getElementById('conferenceIdInput').value="";
+		document.getElementById('conferenceForm').reset();
+		document.getElementById('closeConferenceModal').click();
+		
+	} else if(e.target.id=="scientistForm"){
+		e.preventDefault();
+		let id=document.getElementById('scientistIdInput').value;
+		let name=document.getElementById('scientistNameInput').value;
+		let organisation=document.getElementById('scientistOrganisationInput').value; 
+		let country=document.getElementById('scientistCountryInput').value;
+		let field=document.getElementById('scientistFieldInput').value;
+		let degree=document.getElementById('scientistDegreeInput').value;
+		if(id==""){
+			let newScientist={
+				id:++scientistsLastId,
+				name:name,
+				organisation:organisation,
+				country:country,
+				field:field,
+				degree:degree
+				}
+			scientists.push(newScientist)
+		} else{
+			for(let i=0;i<scientists.length;i++){
+				if(id==scientists[i].id){
+					scientists[i].id=document.getElementById('scientistIdInput').value
+					scientists[i].name=document.getElementById('scientistNameInput').value
+					scientists[i].organisation=document.getElementById('scientistOrganisationInput').value
+					scientists[i].country=document.getElementById('scientistCountryInput').value
+					scientists[i].field=document.getElementById('scientistFieldInput').value
+					scientists[i].degree=document.getElementById('scientistDegreeInput').value
+					break;
+				}
+			}
+		}
+		displayScientists();
+		document.getElementById('scientistIdInput').value="";
+		document.getElementById('scientistForm').reset();
+		document.getElementById('closeScientistModal').click();
+		
+	} else if(e.target.id=="participationForm"){
+		e.preventDefault();
+		let id=document.getElementById('participationIdInput').value;
+		let conference=document.getElementById('participationConferenceInput').value;
+		let scientist=document.getElementById('participationScientistInput').value; 
+		let topic=document.getElementById('participationTopicInput').value;
+		let type=document.getElementById('participationTypeInput').value;
+		let duration=document.getElementById('participationDurationInput').value;
+		if(id==""){
+			let newParticipation={
+				id:++participationsLastId,
+				conference:conference,
+				scientist:scientist,
+				topic:topic,
+				type:type,
+				duration:duration
+				}
+			participations.push(newParticipation)
+		} else{
+			for(let i=0;i<participations.length;i++){
+				if(id==participations[i].id){
+					participations[i].id=document.getElementById('participationIdInput').value
+					participations[i].conference=document.getElementById('participationConferenceInput').value
+					participations[i].scientist=document.getElementById('participationScientistInput').value
+					participations[i].topic=document.getElementById('participationTopicInput').value
+					participations[i].type=document.getElementById('participationTypeInput').value
+					participations[i].duration=document.getElementById('participationDurationInput').value
+					break;
+				}
+			}
+		}
+		displayParticipations();
+		document.getElementById('participationIdInput').value="";
+		document.getElementById('participationForm').reset();
+		document.getElementById('closeParticipationModal').click();
+		
+	} 
+  });
