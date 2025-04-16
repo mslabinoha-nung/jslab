@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Lab 4</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>Система управління контентом</h1>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#participation">Участі у конференціях</a></li>
+    <li><a data-toggle="tab" href="#scientist">Вчені</a></li>
+    <li><a data-toggle="tab" href="#conference">Конференції</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="participation" class="tab-pane fade in active">
+      <h3>Участі у конференціях</h3>
+      <table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Конференція</th>
+				<th>Вчений</th>
+				<th>Тема доповіді</th>
+				<th>Тип виступу</th>
+				<th>Тривалість</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	  </table>
+    </div>
+    <div id="scientist" class="tab-pane fade">
+      <h3>Вчені</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="conference" class="tab-pane fade">
+      <h3>Конференції</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for adding conference -->
+<div class="modal fade" id="conferenceModal" tabindex="-1" role="dialog" aria-labelledby="conferenceModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="conferenceModalLongTitle">Додати/Редагувати Конференцію</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="conferenceForm">
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="conferenceTopicInput" class="form-label">Тематика</label>
+              <input type="text" class="form-control" id="conferenceTopicInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="conferenceTitleInput" class="form-label">Назва</label>
+              <input type="text" class="form-control" id="conferenceTitleInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="conferenceCountryInput" class="form-label">Країна</label>
+              <input type="text" class="form-control" id="conferenceCountryInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="conferencePlaceInput" class="form-label">Місце проведення</label>
+              <input type="text" class="form-control" id="conferencePlaceInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="conferenceDateInput" class="form-label">Дата проведення</label>
+              <input type="text" class="form-control" id="conferenceDateInput" required>
+            </div>
+            <input type="hidden" id="conferenceIdInput" value=""/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeConferenceModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal for adding scientist -->
+<div class="modal fade" id="scientistModal" tabindex="-1" role="dialog" aria-labelledby="scientistModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="scientistModalLongTitle">Додати/Редагувати вченого</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="scientistForm">
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="scientistNameInput" class="form-label">Ім'я</label>
+              <input type="text" class="form-control" id="scientistNameInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="scientistOrganisationInput" class="form-label">Організація</label>
+              <input type="text" class="form-control" id="scientistOrganisationInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="scientistCountryInput" class="form-label">Країна</label>
+              <input type="text" class="form-control" id="scientistCountryInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="scientistFieldInput" class="form-label">Спеціалізація</label>
+              <input type="text" class="form-control" id="scientistFieldInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="scientistDegreeInput" class="form-label">Науковий ступінь</label>
+              <input type="text" class="form-control" id="scientistDegreeInput" required>
+            </div>
+            <input type="hidden" id="scientistIdInput" value=""/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeScientistModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal for adding participation -->
+<div class="modal fade" id="participationModal" tabindex="-1" role="dialog" aria-labelledby="participationModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="participationModalLongTitle">Додати/Редагувати участь</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="participationForm">
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="participationConferenceInput" class="form-label">Конференція</label>
+              <select id="participationConferenceInput" class="form-select form-control form-select-lg mb-3" aria-label=".form-select-lg" required>
+              </select>  
+            </div>
+            <div class="mb-3">
+              <label for="participationScientistInput" class="form-label">Вчений</label>
+              <select id="participationScientistInput" class="form-select form-control form-select-lg mb-3" aria-label=".form-select-lg" required>
+              </select>  
+            </div>
+            <div class="mb-3">
+              <label for="participationTopicInput" class="form-label">Тема доповіді</label>
+              <input type="text" class="form-control" id="participationTopicInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="participationTypeInput" class="form-label">Тип участі</label>
+              <select id="participationTypeInput" class="form-select form-control form-select-lg mb-3" aria-label=".form-select-lg" required>
+                <option value="Доповідь">Доповідь</option>
+                <option value="Повідомлення">Повідомлення</option>
+                <option value="Стендова доповідь">Стендова доповідь</option>
+                <option value="Оргкомітет">Оргкомітет</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="participationDurationInput" class="form-label">Тривалість доповіді (у хвилинах)</label>
+              <input type="number" class="form-control" id="participationDurationInput" required>
+            </div>
+            <input type="hidden" id="participationIdInput" value=""/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeParticipationModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="./main.js"></script>
+</body>
+</html>
